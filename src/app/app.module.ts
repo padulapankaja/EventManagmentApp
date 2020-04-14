@@ -5,20 +5,23 @@ import { MatSliderModule } from '@angular/material/slider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { TodoListComponent } from './components/todo-list/todo-list.component';
+import { TodoListComponent } from './components/online-planner/online-planner.component';
 
+import { AutofocusModule } from 'angular-autofocus-fix';
 
 import { FormsModule } from '@angular/forms';
 
 // import time picker
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-import {NgbDatepickerModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDatepickerModule, NgbRatingModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstrap';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoListComponent
+    TodoListComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -27,7 +30,10 @@ import {NgbDatepickerModule, NgbTimepickerModule} from '@ng-bootstrap/ng-bootstr
     FormsModule,
     MatSliderModule,
     NgbTimepickerModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    MatDatepickerModule,
+    NgbRatingModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
