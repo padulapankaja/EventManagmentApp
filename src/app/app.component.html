@@ -8,9 +8,24 @@
   <title>Online</title>
 </head>
 <body>
-  <div class="container">
+<div>
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #10ac84; color: white">
+  <a class="navbar-brand"  style="color: white; font-weight: 500">Online Planner</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" >
+    <span style="color: white" class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link"  style="color: white; font-weight: 500">{{greetingUser}}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  style="color: white">Today : {{ getToday()}}</a>
+      </li>
+    </ul>
 
-    <h3>This is test</h3>
+  </div>
+</nav>
 
     <app-todo-list></app-todo-list>
   </div>

@@ -1,76 +1,67 @@
 <div class="container">
-
-
-  <div class="row add_event_main_div">
+  <div class="row mt-2 mb-2">
     <div class="col-md-12">
-      <h4>Add your event </h4>
-    </div>
-    <div class="col-md-4 mt-2">
-      <label>Name</label> <br/>
-      <input type="text" class="todo-input" placeholder="What needs to be done" [(ngModel)]="eventName"  required>
-
-    </div>
-    <div class="col-md-4 mt-2">
-      <label>Date</label> <br/>
-            <ngb-datepicker #dp [(ngModel)]="eventDate" (ngModelChange)="addEventDate()"  required></ngb-datepicker>
-    </div>
-    <div class="col-md-4 mt-2">
-      <label>Time</label> <br/>
-      <ngb-timepicker [(ngModel)]="eventTime"  (ngModelChange)="addEventTime()"  required></ngb-timepicker>
-
-    </div>
-    <div class="col-md-10">
-      <button class="btn btn-lg btn-success text-dark float-right"  (mousedown)="addEvent()">Add Event</button>
-    </div>
-    <div class="col-md-12">
-      <ngb-rating [(rate)]="currentRate">
-        <ng-template let-fill="fill" let-index="index">
-          <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
-        </ng-template>
-      </ngb-rating>
+      <h3>View Events</h3>
       <hr>
-      <pre>Rate: <b>{{currentRate}}</b></pre>
-    </div>
 
-  </div>
-  <hr>
-
-
-  <div class="row mt-2 mb-2" >
-    <div class="col-md-12">
-      <h4>View Events</h4>
     </div>
     <div class="col-md-12 row" style="display: flex; align-items: center">
+     <div class="col-md-9">
+       <div class="eventCard mt-1 mb-1 row">
+         <div class="col-md-2">
+           <h5 class="m-1 p-1">Your next event</h5>
+         </div>
+         <div class="col-md-2">
+           <h5 class="m-1 p-1">Title</h5>
+         </div>
+         <div class="col-md-2">
+           <h5 class="m-1 p-1">Date</h5>
+         </div>
+         <div class="col-md-2">
+           <h5 class="m-1 p-1">Time</h5>
+         </div>
+         <div class="col-md-2">
+           <h5 class="m-1 p-1">Rating</h5>
+         </div>
+       </div>
+     </div>
+
       <div class="col-md-4">
         <label> <strong>Select Date</strong></label> <br/>
-        <ngb-datepicker #dp [(ngModel)]="getCalanderDate" (ngModelChange)="getEventDatebyCalander()"  required></ngb-datepicker>
+        <ngb-datepicker #dp [(ngModel)]="getCalanderDate" (ngModelChange)="getEventDatebyCalander()"
+                        required></ngb-datepicker>
+        <h5 style="margin-bottom: 2px; margin-top: 10px">* Select day to sort events</h5>
+        <h5 style="margin-bottom: 2px; ">* In first time you can see all events</h5>
+        <h5>* For edit please click event</h5>
 
       </div>
       <div class="col-md-8">
-        <h5>For Edit Please Click Event</h5>
-        <div class="eventCard mt-1 mb-1 row" *ngFor="let event of eventFilterByDay()" >
-            <div class="col-md-8">
-              <h2  *ngIf="!event.eventEdit; else editingEvent" (dblclick)="editEvent(event)">Event Title : {{ event.eventName }} </h2>
-            </div>
-          <div class="col-md-4">
-            <ngb-rating [(rate)]="currentRate">
+
+        <div class="eventCard mt-1 mb-1 row" *ngFor="let event of eventFilterByDay()">
+          <div class="col-md-8">
+            <h4 style="font-weight: 600;  display: inline-block; margin-bottom: 1px" *ngIf="!event.eventEdit; else editingEvent" (dblclick)="editEvent(event)">Event Title
+              : {{ event.eventName }} </h4>
+            <p style="font-size: 12px; display: inline-block; color: #ff1e1e" class="ml-1" *ngIf="checkeventExpireornot(event.eventDate, getcurrentDate()) == true; else false ">expired</p>
+          </div>
+
+          <div class="col-md-3">
+            <ngb-rating [(rate)]="event.eventRate">
               <ng-template let-fill="fill" let-index="index">
-                <span class="star" [class.filled]="fill === 100" [class.bad]="index < 5">&#9733;</span>
+                <span class="star" [class.filled]="fill === 100" [class.bad]="index < 4">&#9733;</span>
               </ng-template>
             </ngb-rating>
-            <hr>
-            <pre>Rate: <b>{{currentRate}}</b></pre>
           </div>
           <div class="col-md-4">
-            <h5>Date :  {{ event.eventDate.year + "-"+ event.eventDate.month + "-" + event.eventDate.day }} </h5>
+            <h5>Date :  {{ event.eventDate.year + "-" + event.eventDate.month + "-" + event.eventDate.day }} </h5>
           </div>
           <div class="col-md-4">
-            <h5>Time :{{ event.eventTime.hour +"h " +event.eventTime.minute +"m "}} </h5>
+            <h5>Time :{{ event.eventTime.hour + "h " + event.eventTime.minute + "m "}} </h5>
           </div>
           <ng-template #editingEvent>
-            <input type="text" class="todo-input"  [(ngModel)]="event.eventName"  (click)="editEvent(event)"  (blur)="doneEdit(event)" (keyup.enter)="doneEdit(event)" autofocus>
+            <input type="text" class="todo-input" [(ngModel)]="event.eventName" (click)="editEvent(event)"
+                   (blur)="doneEdit(event)" (keyup.enter)="doneEdit(event)" autofocus>
           </ng-template>
-          <div class="remove-item" (click)="deleteEvent(event.eventId)" >
+          <div class="remove-item" (click)="deleteEvent(event.eventId)">
             <i class="fas fa-trash" style="color: #ff1e1e"></i>
           </div>
         </div>
@@ -78,31 +69,53 @@
     </div>
   </div>
 
-
-
-
-
-
-
-
-
-
-
   <div class="extra-container">
-    <div><label><input type="checkbox" > Check All</label></div>
-    <div>{{remaingEvent() }} : items left</div>
+    <div> <p style="font-size: 12px; font-weight: 600">Number of all events : {{remaingEvent() }} </p>  </div>
   </div>
 
-  <div class="extra-container">
-    <div>
-      <button class="btn btn-sm btn-success" style="color: black" >All</button>
-      <button class="btn btn-sm btn-warning" style="color: black" >Active</button>
-      <button class="btn btn-sm btn-info" style="color: black">Completed</button>
-    </div>
+<!--  <button (click)="getcurrentDate()">Get current Date</button>-->
 
-    <div>
-      <button class="btn btn-sm btn-danger" style="color: black">Clear Completed</button>
-    </div>
+  <div class="col-md-12">
+    <button class="btn btn-lg btn-success bnt_add" (click)="changeStat()">Add event</button>
+    <div *ngIf="getAddStatus() == true; else false " class="row add_event_main_div mb-4">
+      <div class="col-md-12">
+        <h3>Add new event</h3>
+      </div>
+      <div class="col-md-3 mt-2">
+        <label>Tittle</label> <br/>
+        <input type="text" class="todo-input" placeholder="Event Tittle" [(ngModel)]="eventName" required>
+
+      </div>
+      <div class="col-md-3 mt-2">
+        <label>Date</label> <br/>
+        <ngb-datepicker #dp [(ngModel)]="eventDate" (ngModelChange)="addEventDate()" required></ngb-datepicker>
+      </div>
+      <div class="col-md-3 mt-2">
+        <label>Time</label> <br/>
+        <ngb-timepicker [(ngModel)]="eventTime" (ngModelChange)="addEventTime()" required></ngb-timepicker>
+
+      </div>
+      <div class="col-md-3 mt-2">
+        <label>Rate</label> <br/>
+        <ngb-rating [(ngModel)]="eventRate">
+          <ng-template let-fill="fill" let-index="index">
+            <span class="star" [class.filled]="fill === 100" [class.bad]="index < 3">&#9733;</span>
+          </ng-template>
+        </ngb-rating>
+        <!--      <pre>Rate: <b>{{currentRate}}</b></pre>-->
+      </div>
+      <hr>
+
+<div class="col-md-12">
+  <button class="btn btn-lg btn-success text-dark float-right bnt_add  m-2 p-2" (mousedown)="addEvent()">Add Event</button>
+
+  <button class="btn btn-lg btn-info text-dark float-right bnt_close m-2 p-2" (click)="changeAddStateFalse()">Close</button>
+
+
+</div>
+      </div>
+
+
 
   </div>
 
