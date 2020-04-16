@@ -10,6 +10,7 @@ import { TodoListComponent } from './components/online-planner/online-planner.co
 import { AutofocusModule } from 'angular-autofocus-fix';
 
 import { FormsModule } from '@angular/forms';
+import { CountdownModule } from 'ngx-countdown';
 
 // import time picker
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
@@ -33,6 +34,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     NgbDatepickerModule,
     MatDatepickerModule,
     NgbRatingModule,
+    CountdownModule
 
   ],
   providers: [],

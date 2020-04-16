@@ -28,6 +28,10 @@
            </ngb-rating></h5>
 
          </div>
+<!--         <div class="col">-->
+<!--&lt;!&ndash;           <countdown [config]="{leftTime:nexteventSecond(getcurrentDate(), getnextEvent().eventDate ), format:'MM :dd :HH:mm:ss'}" ></countdown>&ndash;&gt;-->
+
+<!--         </div>-->
        </div>
      </div>
 
@@ -94,7 +98,7 @@
       </div>
       <div class="col-md-3 mt-2">
         <label>Date</label> <br/>
-        <ngb-datepicker #dp [(ngModel)]="eventDate" (ngModelChange)="addEventDate()" required></ngb-datepicker>
+        <ngb-datepicker #dp [(ngModel)]="eventDate" (ngModelChange)="addEventDate()" [minDate] ="minDate" required></ngb-datepicker>
       </div>
       <div class="col-md-3 mt-2">
         <label>Time</label> <br/>

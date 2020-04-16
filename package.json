@@ -27,6 +27,7 @@
     "angularx-flatpickr": "^6.3.1",
     "bootstrap": "^4.4.1",
     "flatpickr": "^4.6.3",
+    "ngx-countdown": "^9.0.1",
     "ngx-material-timepicker": "^5.5.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

@@ -44,6 +44,7 @@ export class TodoListComponent implements OnInit {
   addStates: boolean;
   //nexrtEvent
   nextEvent :Event;
+  minDate = undefined;
 
 
   ngOnInit() {
@@ -59,7 +60,13 @@ export class TodoListComponent implements OnInit {
     this.getCalanderDate = null;
     this.eventRate = 3;
     this.addStates = false;
+    const current = new Date();
 
+    this.minDate = {
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate()
+    };
     this.events = [
       {
         'eventId': 1,
@@ -85,7 +92,7 @@ export class TodoListComponent implements OnInit {
         'eventName': 'This is my secod event',
         'eventDate': {
           'year': '2020',
-          'month': '07',
+          'month': '06',
           'day': '05'
         },
         'eventTime': {
@@ -103,7 +110,7 @@ export class TodoListComponent implements OnInit {
         'eventName': 'This is my third event',
         'eventDate': {
           'year': '2020',
-          'month': '05',
+          'month': '07',
           'day': '15'
         },
         'eventTime': {
@@ -140,17 +147,17 @@ export class TodoListComponent implements OnInit {
     });
     this.eventName = '';
     this.eventId++;
-    console.log(this.events);
+    // console.log(this.events);
     this.addStates = false;
   }
 
   addEventDate() {
-    console.log(this.eventDate);
+    // console.log(this.eventDate);
 
   }
 
   addEventTime() {
-    console.log(this.eventTime);
+    // console.log(this.eventTime);
   }
 
 //  ------------------------- delete event ----------------------
@@ -173,11 +180,11 @@ export class TodoListComponent implements OnInit {
     return this.events.filter(event => !event.eventDone).length;
   }
   getEventDatebyCalander() {
-    console.log(this.getCalanderDate.year);
+    // console.log(this.getCalanderDate.year);
   }
 
   eventFilterByDay(): Event[] {
-    console.log(this.events);
+    // console.log(this.events);
 
     if (this.getCalanderDate === null) {
       return this.events;
@@ -204,8 +211,8 @@ export class TodoListComponent implements OnInit {
       'day': day
     };
 
-    console.log('Cuurent Date');
-    console.log(tempCurrentDate);
+    // console.log('Cuurent Date');
+    // console.log(tempCurrentDate);
     return tempCurrentDate;
 
   }
@@ -239,10 +246,10 @@ export class TodoListComponent implements OnInit {
     var month = tempCurentDate.month;
     var day = tempCurentDate.day;
 
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-    console.log(parseInt("15", 10)) ;
-    console.log(day) ;
-    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    // console.log(parseInt("15", 10)) ;
+    // console.log(day) ;
+    // console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
 
     if (tempCurentDate === null) {
@@ -267,6 +274,20 @@ export class TodoListComponent implements OnInit {
       }
     }
 
+
+    nexteventSecond(currentDate, eventDate):number{
+
+      var one = (parseInt(eventDate.month, 10)  -  currentDate.month);
+      var second  = (parseInt(eventDate.day, 10)  -  currentDate.day);
+        var final = second  * 24 * 60 *60;
+        if(final < 0){
+          final = final * (-1);
+        }
+      //
+      // console.log("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+      // console.log(final);
+        return  final;
+    }
 
 }
 
