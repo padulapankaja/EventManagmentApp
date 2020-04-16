@@ -6,22 +6,27 @@
 
     </div>
     <div class="col-md-12 row" style="display: flex; align-items: center">
-     <div class="col-md-9">
-       <div class="eventCard mt-1 mb-1 row">
+     <div class="col-md-12">
+       <div class="eventCard_next mt-1 mb-1 row">
          <div class="col-md-2">
-           <h5 class="m-1 p-1">Your next event</h5>
+           <h5 class="m-1 p-1" style="font-weight: 600">Your next event</h5>
          </div>
-         <div class="col-md-2">
-           <h5 class="m-1 p-1">Title</h5>
+         <div class="col">
+           <h5 class="m-1 p-1">Title  : {{   getnextEvent().eventName}} </h5>
          </div>
-         <div class="col-md-2">
-           <h5 class="m-1 p-1">Date</h5>
+         <div class="col">
+           <h5 class="m-1 p-1">Date :  {{   getnextEvent().eventDate.year}}  - {{   getnextEvent().eventDate.month}} - {{   getnextEvent().eventDate.day}}</h5>
          </div>
-         <div class="col-md-2">
-           <h5 class="m-1 p-1">Time</h5>
+         <div class="col">
+           <h5 class="m-1 p-1">Time  : {{   getnextEvent().eventTime.hour}} h : {{   getnextEvent().eventTime.minute}} m</h5>
          </div>
-         <div class="col-md-2">
-           <h5 class="m-1 p-1">Rating</h5>
+         <div class="col">
+           <h5 class="m-1 p-1">Rating :  <ngb-rating [(rate)]="getnextEvent().eventRate">
+             <ng-template let-fill="fill" let-index="index">
+               <span class="star" style="font-size: 12px" [class.filled]="fill === 100" [class.bad]="index < 4">&#9733;</span>
+             </ng-template>
+           </ngb-rating></h5>
+
          </div>
        </div>
      </div>
@@ -32,14 +37,15 @@
                         required></ngb-datepicker>
         <h5 style="margin-bottom: 2px; margin-top: 10px">* Select day to sort events</h5>
         <h5 style="margin-bottom: 2px; ">* In first time you can see all events</h5>
-        <h5>* For edit please click event</h5>
-
+        <h5>* For edit please double click event title</h5>
+        <button class="btn btn-sm btn_viewAll" (click)="viewAllEvents()">View All Events</button>
       </div>
       <div class="col-md-8">
 
-        <div class="eventCard mt-1 mb-1 row" *ngFor="let event of eventFilterByDay()">
+        <div class="eventCard mt-1 mb-1 row" *ngFor="let event of eventFilterByDay()" [ngStyle]="{ 'backgroundColor' : event.eventExpire == false ? 'white' : '#ffbe76' }">
+          {{setExpire( event.eventDate, getcurrentDate(),event )}}
           <div class="col-md-8">
-            <h4 style="font-weight: 600;  display: inline-block; margin-bottom: 1px" *ngIf="!event.eventEdit; else editingEvent" (dblclick)="editEvent(event)">Event Title
+            <h4 style="font-weight: 600;  display: inline-block; margin-bottom: 1px" *ngIf="!event.eventEdit  ; else editingEvent" (dblclick)="editEvent(event)">Event Title
               : {{ event.eventName }} </h4>
             <p style="font-size: 12px; display: inline-block; color: #ff1e1e" class="ml-1" *ngIf="checkeventExpireornot(event.eventDate, getcurrentDate()) == true; else false ">expired</p>
           </div>
@@ -73,7 +79,7 @@
     <div> <p style="font-size: 12px; font-weight: 600">Number of all events : {{remaingEvent() }} </p>  </div>
   </div>
 
-<!--  <button (click)="getcurrentDate()">Get current Date</button>-->
+<!--  <button (click)=" getnextEvent()">Get current Date</button>-->
 
   <div class="col-md-12">
     <button class="btn btn-lg btn-success bnt_add" (click)="changeStat()">Add event</button>

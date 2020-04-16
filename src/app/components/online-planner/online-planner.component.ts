@@ -42,6 +42,8 @@ export class TodoListComponent implements OnInit {
 
   //addstates
   addStates: boolean;
+  //nexrtEvent
+  nextEvent :Event;
 
 
   ngOnInit() {
@@ -185,6 +187,10 @@ export class TodoListComponent implements OnInit {
 
   }
 
+  viewAllEvents(){
+    this.getCalanderDate = null;
+    this. eventFilterByDay();
+  }
 //--------------get current date
   getcurrentDate() {
     var currentDate = new Date();
@@ -226,10 +232,40 @@ export class TodoListComponent implements OnInit {
       return this.addStates = true;
     }
   }
-  getnextEvent(){
+  getnextEvent():Event{
+    var tempCurentDate =  this.getcurrentDate();
+    var tempnext;
+    var year = tempCurentDate.year.toString();
+    var month = tempCurentDate.month;
+    var day = tempCurentDate.day;
+
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+    console.log(parseInt("15", 10)) ;
+    console.log(day) ;
+    console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
+
+    if (tempCurentDate === null) {
+      return null;
+    } else {
+      tempnext =  this.events.filter(event => event.eventDate.year == year &&      parseInt(event.eventDate.month, 10) >= month  && event.eventExpire != true   );
+    }
+    if(tempnext.length == 0){
+      tempnext = null;
+    }else{
+      this.nextEvent = tempnext[0];
+      return this.nextEvent;
+    }
 
 
 }
+
+
+    setExpire(eventDate, currentDate, Event){
+      if (eventDate.year <= currentDate.year && eventDate.month <= currentDate.month && eventDate.day <= currentDate.day) {
+          Event.eventExpire = true;
+      }
+    }
 
 
 }
